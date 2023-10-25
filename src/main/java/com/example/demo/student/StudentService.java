@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -32,6 +33,9 @@ public class StudentService {
         if(studentOptional.isPresent()) {
             throw new IllegalStateException("Email is Already Taken!");
         }
+        int generatedAge = Period.between(student.getDob(), LocalDate.now()).getYears();
+        student.setAge(generatedAge);
+        System.out.println("Age :" + student.getAge());
         studentRepository.save(student);
     }
 
